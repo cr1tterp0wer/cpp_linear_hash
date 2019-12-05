@@ -39,15 +39,15 @@ void Hash<T>::insert_linear( T value ){
 template<typename T>
 void Hash<T>::insert_quadratic( T value ){
   int index = this->hash( (int)value );
-
+  probe = 0;
   while( !this->isFull() ){
     if( index > capacity-1 ){
       index = 0;
     }
     else if( this->data[index] != NULL){
+      probe++;
       total_collisions++;
       index = hash_quadratic( (int)value, probe );
-      probe++;
     }else{
       std::cout << "INSERTING: " <<
         value << ", INDEX: " <<
